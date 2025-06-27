@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Global News & Pokémon Explorer - Professional UI</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white text-gray-900 font-sans transition-colors duration-300 min-h-screen">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container flex justify-between items-center py-6">
+      <div>
+        <h1 class="site-title" aria-label="Global News and Pokémon Explorer">
+          <span aria-hidden="true">🌐</span> Global News & <span class="highlight">Pokémon</span> Explorer
+        </h1>
+        <p class="site-desc">Discover trending news and Pokémon details in style</p>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <path id="sun" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM2.05 4.536a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 10a1 1 0 011-1h1a1 1 0 110 2H4a1 1 0 01-1-1zm12 0a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zm-2.536 4.95a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.95-2.536a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0z"/>
+          <path id="moon" class="hidden" d="M12.458 2.458a6.5 6.5 0 00-8.458 9.002A6.5 6.5 0 1012.458 2.458z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container py-8">
+    <section class="intro-section animate-fade-in" role="region" aria-label="Introduction">
+      <h2 class="text-2xl font-semibold text-center">Stay Informed, Explore the Pokémon World</h2>
+      <p class="text-center mt-2">Search for global news and discover Pokémon details with a modern, interactive interface.</p>
+    </section>
+
+    <div id="error" class="hidden error-message" role="alert" aria-live="assertive"></div>
+    <div id="loading" class="hidden loading-spinner" aria-live="polite" aria-busy="true">
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="sr-only">Loading...</span>
+    </div>
+
+    <!-- Toggle Tabs -->
+    <div class="tabs flex justify-center mb-8" role="tablist" aria-label="Toggle between World News and Pokémon">
+      <button id="tab-news" role="tab" aria-selected="true" tabindex="0" aria-controls="news-section" class="tab-btn">World News</button>
+      <button id="tab-pokemon" role="tab" aria-selected="false" tabindex="-1" aria-controls="pokemon-section" class="tab-btn">Pokémon</button>
+    </div>
+
+    <!-- Search Bars -->
+    <div class="search-bars flex flex-col sm:flex-row gap-4 mb-10" role="search">
+      <div class="relative flex-1" id="news-search-bar">
+        <input type="text" id="news-search" placeholder="Search news by keyword..." aria-label="Search news" autocomplete="off" />
+        <span id="news-error" class="hidden error-message" role="alert"></span>
+      </div>
+      <div class="relative flex-1" id="region-search-bar" style="display:none;">
+        <input type="text" id="region-search" placeholder="Search for a Pokémon..." aria-label="Search Pokémon" autocomplete="off" />
+        <span id="region-error" class="hidden error-message" role="alert"></span>
+      </div>
+    </div>
+
+    <!-- News Section -->
+    <section id="news-section" class="mb-12" aria-label="News Articles" role="tabpanel" tabindex="0">
+      <h2 class="text-2xl font-semibold text-center mb-6">Latest Global News</h2>
+      <div id="news" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div class="flex justify-center mt-8">
+        <button id="load-more-news" class="load-more-btn hidden" aria-label="Load more news articles">Load More News</button>
+      </div>
+    </section>
+
+    <!-- Pokémon Section -->
+    <section id="pokemon-section" aria-label="Pokémon Regions" role="tabpanel" tabindex="0" style="display:none;">
+      <h2 class="text-2xl font-semibold text-center mb-6">Explore Pokémon</h2>
+      <div id="regions" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div class="flex justify-center mt-8">
+        <button id="load-more-pokemon" class="load-more-btn hidden" aria-label="Load more Pokémon">Load More Pokémon</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container text-center">
+      <p>© 2025 Global News & Pokémon Explorer. Powered by <a href="https://newsapi.ai" target="_blank" class="footer-link">NewsAPI.ai</a> and <a href="https://pokeapi.co" target="_blank" class="footer-link">PokeAPI</a>.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
